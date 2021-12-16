@@ -12,23 +12,10 @@ function App() {
   function showMainPage() {
     setCurrentPage("main");
   }
-  function showPage() {
-    switch (currentPage) {
-      case "login":
-        return (
-          <Login onLogin={showMainPage} />
-        )
-      case "main":
-        return (
-          <Main />
-        )
-      default:
-        break;
-    }
-  }
   return (
     <div className="App">
-      {showPage()}
+      {currentPage === 'login' && <Login onLogin={showMainPage} />}
+      {currentPage === 'main' && <Main/>}
     </div>
   );
 }
