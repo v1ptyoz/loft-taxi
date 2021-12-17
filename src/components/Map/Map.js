@@ -4,7 +4,7 @@ import "./Map.css";
 export function Map(props) {
   return (
     <div className="map">
-      <ProfileForm showed={props.showModal}/>
+      <ProfileForm showed={props.currentPage === "profile"}/>
     </div>
   )
 }
