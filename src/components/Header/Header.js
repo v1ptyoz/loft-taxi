@@ -2,7 +2,13 @@ import './Header.css';
 import logo from './logo.png'
 
 export function Header(props) {
-  
+  function setActive(page) {
+    const spans = document.querySelectorAll(".nav ul li span");
+    const activeSpan = document.querySelector(`span[data-page=${page}]`);
+    spans.forEach(span => span.classList.remove('active'));
+    activeSpan.classList.add("active");
+    props.showPage(page);
+  }
   return (
     <header className="header">
       <div>
@@ -11,13 +17,13 @@ export function Header(props) {
       <nav className="nav">
         <ul>
           <li>
-            <span className={props.activeLink === "map" && "active"}>Карта</span>
+            <span data-page="main" classList="active" onClick={() => {setActive("main")}}>Карта</span>
           </li>
           <li>
-            <span className={props.activeLink === "profile" && "active"} onClick={props.profileHandler}>Профиль</span>
+            <span data-page="profile" onClick={() => {setActive("profile")}}>Профиль</span>
           </li>
           <li>
-            <span>Выйти</span>
+            <span data-page="logout">Выйти</span>
           </li>
         </ul>
       </nav>
