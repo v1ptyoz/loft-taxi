@@ -11,13 +11,13 @@ export function Header(props) {
       <nav className="nav">
         <ul>
           <li>
-            <a href="/map" className={props.activeLink === "map" && "active"}>Карта</a>
+            <span className={props.activeLink === "map" && "active"}>Карта</span>
           </li>
           <li>
-            <a href="/profile" className={props.activeLink === "profile" && "active"} onClick={props.profileHandler}>Профиль</a>
+            <span className={props.activeLink === "profile" && "active"} onClick={props.profileHandler}>Профиль</span>
           </li>
           <li>
-            <a href="/logout">Выйти</a>
+            <span>Выйти</span>
           </li>
         </ul>
       </nav>

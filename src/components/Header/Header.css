@@ -10,13 +10,14 @@
   gap: 44px;
 }
 
-.nav ul a {
+.nav ul span {
   color: #ffffff;
   font-size: 21px;
+  cursor: pointer;
 }
 
-.nav ul a.active,
-.nav ul a:hover {
+.nav ul span.active,
+.nav ul span:hover {
   color: #FDBF5A;
   text-decoration: none;
 }
