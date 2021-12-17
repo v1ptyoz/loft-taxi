@@ -6,16 +6,14 @@ import { Main } from "./pages/Main/Main"
 
 function App() {
   let [currentPage, setCurrentPage] = useState('login');
-  function showLoginPage() {
-    setCurrentPage("login");
-  }
-  function showMainPage() {
-    setCurrentPage("main");
+  function showPage(page) {
+    setCurrentPage(page);
   }
   return (
     <div className="App">
-      {currentPage === 'login' && <Login onLogin={showMainPage} />}
-      {currentPage === 'main' && <Main/>}
+      {currentPage === 'login' && <Login showPage={showPage} />}
+      {currentPage === 'main' && <Main currentPage={currentPage} showPage={showPage} />}
+      {currentPage === 'profile' && <Main currentPage={currentPage} showPage={showPage} />}
     </div>
   );
 }
