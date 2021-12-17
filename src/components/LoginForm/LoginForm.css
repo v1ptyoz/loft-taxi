@@ -22,18 +22,26 @@
   margin-top: -10px;
   margin-bottom: 46px;
 }
-.forgot a {
+.forgot {
+  display: flex;
+  justify-content: flex-end;
+}
+.forgot span {
   font-size: 16px;
-  color: #828282
+  color: #828282;
+  cursor: pointer;
 }
 .form__footer {
   margin-top: 33px;
   align-self: center;
   color: #828282;
+  text-align: center;
 }
-.form__footer a {
+.form__footer span {
+  display: inline-block;
   color: #FDBF5A;
   margin-left: 4px;
+  cursor: pointer;
 }
 .form__input-text {
   width: 100%;

@@ -8,16 +8,12 @@ export function LoginForm(props) {
   let [disabled, setDisabled] = useState(true);
 
   function checkInput() {
-    setDisabled();
-  }
-  setDisabled = () => {
     if (email && password) {
-      disabled = false;
+      setDisabled(false)
     } else {
-      disabled = true;
+      setDisabled(true)
     }
   }
-  checkInput();
 
   return (
     <form className="form">
@@ -28,11 +24,11 @@ export function LoginForm(props) {
         <div className="form__content">
           <label className="form__input-text">
             <span>Email</span>
-            <input type="text" placeholder="Email" onInput={(event) => {setEmail(event.target.value)}}/>
+            <input type="text" placeholder="Email" onInput={(event) => {setEmail(event.target.value); checkInput()}}/>
           </label>
           <label className="form__input-text">
             <span>Пароль</span>
-            <input type="password" placeholder="Пароль" onInput={(event) => {setPassword(event.target.value)}}/>
+            <input type="password" placeholder="Пароль" onInput={(event) => {setPassword(event.target.value); checkInput()}}/>
           </label>
           <div className="forgot">
             <span>Забыли пароль</span>
