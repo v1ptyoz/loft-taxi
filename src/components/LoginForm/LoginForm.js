@@ -35,12 +35,12 @@ export function LoginForm(props) {
             <input type="password" placeholder="Пароль" onInput={(event) => {setPassword(event.target.value)}}/>
           </label>
           <div className="forgot">
-            <a href="/forgot">Забыли пароль</a>
+            <span>Забыли пароль</span>
           </div>
           <Button caption="Войти" disabled={disabled} handler={props.formHandler} />
           <div className="form__footer">
             Новый пользователь?
-            <a href="/register" onClick={props.linkHandler}>Регистрация</a>
+            <span onClick={props.linkHandler}>Регистрация</span>
           </div>
         </div>
       </div>

@@ -42,7 +42,7 @@ export function RegisterForm(props) {
           <Button caption="Войти" disabled={disabled} handler={props.formHandler} />
           <div className="form__footer">
             Уже зарегистрированы?
-            <a href="/login" onClick={props.linkHandler}>Войти</a>
+            <span onClick={props.linkHandler}>Войти</span>
           </div>
         </div>
       </div>
