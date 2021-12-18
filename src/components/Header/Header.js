@@ -13,9 +13,9 @@ export function Header(props) {
       <nav className="nav">
         <ul>
           {
-            NAVS.map(item => {
+            NAVS.map((item, index) => {
               return (
-                <li>
+                <li key={index}>
                   <span className={item.name === props.currentPage ? "active" :  ""} onClick={() => {props.showPage(item.name)}}>{item.text}</span>
                 </li>
               )
