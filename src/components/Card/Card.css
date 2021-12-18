@@ -1,0 +1,67 @@
+.card {
+  width: 350px;
+  height: 180px;
+  background: #FFFFFF;
+  box-shadow: 0px 5px 20px 2px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  margin-top: 20px;
+  padding: 18px 16px 16px 28px;
+  display: flex;
+  flex-direction: column;
+}
+
+.card__field {
+  position: relative;
+  font-size: 12px;
+  display: flex;
+}
+
+.card__field--date {
+  height: 33px;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.card__field--date::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  display: block;
+  width: 33px;
+  height: 33px;
+  background: url("./card__logo.png");
+}
+
+.card__field--number {
+  font-size: 21px;
+  flex: 1;
+  align-items: center;
+}
+
+.card__field--cvc {
+  font-size: 18px;
+  height: 28px;
+  align-items: center;
+  justify-content: center;
+}
+
+.card__field--cvc::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  display: block;
+  width: 30px;
+  height: 26px;
+  background: url("./card__chip.png") no-repeat;
+}
+
+.card__field--cvc::after {
+  content: '';
+  position: absolute;
+  right: 0;
+  display: block;
+  width: 46px;
+  height: 28px;
+  background: url("./card__system.png") no-repeat;
+}
