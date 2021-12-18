@@ -5,7 +5,7 @@ import { Map } from "../../components/Map/Map";
 export function Main(props) {
   return (
     <div className="main-page">
-      <Header showPage={props.showPage} />
+      <Header currentPage={props.currentPage} showPage={props.showPage} />
       <Map currentPage={props.currentPage}/>
     </div>
   )
