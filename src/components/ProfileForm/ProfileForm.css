@@ -6,9 +6,9 @@
   right: 0;
   background: rgba(0,0,0, .2);
   z-index: 10;
+  display: flex;
   align-items: center;
   flex-direction: column;
-  display: none;
 }
 
 .profile__form {
@@ -51,12 +51,4 @@
 .profile .form__group {
   display: flex;
   gap: 35px;
-}
-
-.hide {
-  display: none;
-}
-
-.show--flex {
-  display: flex;
 }

@@ -3,9 +3,8 @@ import { Card } from "../Card/Card";
 import "./ProfileForm.css";
 
 export function ProfileForm(props) {
-  const classes = props.showed ? "profile show--flex" : "profile hide";
   return (
-    <div className={classes}>
+    <div className="profile">
       <form className="profile__form form">
         <div className="form__wrapper">
           <div className="form__header">
