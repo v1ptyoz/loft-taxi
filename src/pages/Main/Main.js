@@ -1,6 +1,7 @@
 import "./Main.css";
 import { Header } from "../../components/Header/Header";
 import { Map } from "../../components/Map/Map";
+import propTypes from "prop-types";
 
 export function Main(props) {
   return (
@@ -10,3 +11,8 @@ export function Main(props) {
     </div>
   )
 }
+
+Main.propTypes = {
+  currentPage: propTypes.string.isRequired,
+  showPage: propTypes.func.isRequired,
+};

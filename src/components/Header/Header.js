@@ -1,5 +1,6 @@
 import './Header.css';
 import logo from './logo.png'
+import propTypes from 'prop-types';
 
 export function Header(props) {
   const NAVS = [{name: 'main', text: 'Карта'}, 
@@ -26,3 +27,7 @@ export function Header(props) {
     </header>
   )
 }
+
+Header.propTypes = {
+  currentPage: propTypes.string.isRequired,
+};
