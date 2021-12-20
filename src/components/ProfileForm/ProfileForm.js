@@ -2,7 +2,7 @@ import { Button } from "../Button/Button";
 import { Card } from "../Card/Card";
 import "./ProfileForm.css";
 
-export function ProfileForm(props) {
+export function ProfileForm() {
   return (
     <div className="profile">
       <form className="profile__form form">
