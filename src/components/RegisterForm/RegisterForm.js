@@ -1,6 +1,7 @@
 import "./RegisterForm.css";
 import { Button } from "../Button/Button";
 import { useState } from "react";
+import propTypes from "prop-types";
 
 export function RegisterForm(props) {
   let [email, setEmail] = useState();
@@ -48,4 +49,9 @@ export function RegisterForm(props) {
       </div>
     </form>
   )
+}
+
+RegisterForm.propTypes = {
+  formHandler: propTypes.func.isRequired,
+  linkHandler: propTypes.func.isRequired
 }
