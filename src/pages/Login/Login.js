@@ -20,3 +20,7 @@ export function Login(props) {
     </div>
   )
 }
+
+Login.propTypes = {
+  showPage: propTypes.func.isRequired,
+}
