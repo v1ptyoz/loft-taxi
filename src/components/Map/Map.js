@@ -12,4 +12,5 @@ export function Map(props) {
 
 Map.propTypes = {
   currentPage: propTypes.string.isRequired,
+  showPage: propTypes.func.isRequired
 };
