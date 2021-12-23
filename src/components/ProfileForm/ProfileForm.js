@@ -3,10 +3,16 @@ import { Card } from "../Card/Card";
 import "./ProfileForm.css";
 import propTypes from "prop-types";
 
-export function ProfileForm() {
+export function ProfileForm(props) {
+
+  const formHandler = (event) => {
+    event.preventDefault();
+    props.showPage("main");
+  }
+
   return (
     <div className="profile">
-      <form className="profile__form form">
+      <form className="profile__form form" onSubmit={formHandler}>
         <div className="form__wrapper">
           <div className="form__header">
             <h2>Профиль</h2>
@@ -38,7 +44,7 @@ export function ProfileForm() {
             </div>
           </div>
           <div className="form__buttons">
-            <Button caption="Сохранить"></Button>
+            <Button caption="Сохранить" type="submit"></Button>
           </div>
         </div>
       </form>
