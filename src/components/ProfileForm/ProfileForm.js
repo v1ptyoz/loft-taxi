@@ -1,6 +1,7 @@
 import { Button } from "../Button/Button";
 import { Card } from "../Card/Card";
 import "./ProfileForm.css";
+import propTypes from "prop-types";
 
 export function ProfileForm() {
   return (
@@ -43,4 +44,8 @@ export function ProfileForm() {
       </form>
     </div>
   )
+}
+
+ProfileForm.propTypes = {
+  showPage: propTypes.func.isRequired
 }
