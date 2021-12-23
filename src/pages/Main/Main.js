@@ -4,10 +4,11 @@ import { Map } from "../../components/Map/Map";
 import propTypes from "prop-types";
 
 export function Main(props) {
+    
   return (
     <div className="main-page">
       <Header currentPage={props.currentPage} showPage={props.showPage} />
-      <Map currentPage={props.currentPage}/>
+      <Map currentPage={props.currentPage} showPage={props.showPage} />
     </div>
   )
 }
