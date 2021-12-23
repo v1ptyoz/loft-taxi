@@ -1,6 +1,7 @@
 import "./LoginForm.css";
 import { Button } from "../Button/Button";
 import { useState } from "react";
+import propTypes from "prop-types";
 
 export function LoginForm(props) {
   let [email, setEmail] = useState();
@@ -42,4 +43,9 @@ export function LoginForm(props) {
       </div>
     </form>
   )
+}
+
+LoginForm.propTypes = {
+  formHandler: propTypes.func.isRequired,
+  linkHandler: propTypes.func.isRequired
 }
