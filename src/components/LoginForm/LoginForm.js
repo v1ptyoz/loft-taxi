@@ -17,7 +17,7 @@ export function LoginForm(props) {
   }
 
   return (
-    <form className="form">
+    <form className="form" onSubmit={props.formHandler}>
       <div className="form__wrapper">
         <div className="form__header">
           <h2>Войти</h2>
@@ -34,7 +34,7 @@ export function LoginForm(props) {
           <div className="forgot">
             <span>Забыли пароль</span>
           </div>
-          <Button caption="Войти" disabled={disabled} handler={props.formHandler} />
+          <Button type="submit" caption="Войти" disabled={disabled} />
           <div className="form__footer">
             Новый пользователь?
             <span onClick={props.linkHandler}>Регистрация</span>
