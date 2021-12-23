@@ -4,8 +4,7 @@ import propTypes from "prop-types";
 
 export function Map(props) {
   return (
-    <div className="map">
-      {props.currentPage === "profile" && <ProfileForm />}
+      {props.currentPage === "profile" && <ProfileForm showPage={props.showPage} />}
     </div>
   )
 }
