@@ -30,4 +30,5 @@ export function Header(props) {
 
 Header.propTypes = {
   currentPage: propTypes.string.isRequired,
+  showPage: propTypes.func.isRequired
 };
