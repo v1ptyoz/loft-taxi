@@ -25,11 +25,11 @@ export function LoginForm(props) {
         <div className="form__content">
           <label className="form__input-text">
             <span>Email</span>
-            <input type="text" placeholder="Email" onInput={(event) => {setEmail(event.target.value); checkInput()}}/>
+            <input data-testid="email" type="text" placeholder="Email" onInput={(event) => {setEmail(event.target.value); checkInput()}}/>
           </label>
           <label className="form__input-text">
             <span>Пароль</span>
-            <input type="password" placeholder="Пароль" onInput={(event) => {setPassword(event.target.value); checkInput()}}/>
+            <input data-testid="password" type="password" placeholder="Пароль" onInput={(event) => {setPassword(event.target.value); checkInput()}}/>
           </label>
           <div className="forgot">
             <span>Забыли пароль</span>
