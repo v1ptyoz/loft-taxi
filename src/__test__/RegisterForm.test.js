@@ -30,8 +30,9 @@ describe("Login form tests", () => {
 
     userEvent.type(emailInput, "test string");
     userEvent.type(passwordInput, "test string");
-    userEvent.type(nameInput, "test string");
+    expect(await screen.findByRole("button")).toBeDisabled();
 
+    userEvent.type(nameInput, "test string");
     expect(await screen.findByRole("button")).toBeEnabled();
  });
 });
