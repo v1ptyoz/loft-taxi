@@ -1,6 +1,7 @@
 import "./LoginForm.css";
 import { Button } from "../Button/Button";
 import { useState } from "react";
+import propTypes from "prop-types";
 
 export function LoginForm(props) {
   let [email, setEmail] = useState();
@@ -16,7 +17,7 @@ export function LoginForm(props) {
   }
 
   return (
-    <form className="form">
+    <form className="form" onSubmit={props.formHandler}>
       <div className="form__wrapper">
         <div className="form__header">
           <h2>Войти</h2>
@@ -24,16 +25,16 @@ export function LoginForm(props) {
         <div className="form__content">
           <label className="form__input-text">
             <span>Email</span>
-            <input type="text" placeholder="Email" onInput={(event) => {setEmail(event.target.value); checkInput()}}/>
+            <input data-testid="email" type="text" placeholder="Email" onInput={(event) => {setEmail(event.target.value); checkInput()}}/>
           </label>
           <label className="form__input-text">
             <span>Пароль</span>
-            <input type="password" placeholder="Пароль" onInput={(event) => {setPassword(event.target.value); checkInput()}}/>
+            <input data-testid="password" type="password" placeholder="Пароль" onInput={(event) => {setPassword(event.target.value); checkInput()}}/>
           </label>
           <div className="forgot">
             <span>Забыли пароль</span>
           </div>
-          <Button caption="Войти" disabled={disabled} handler={props.formHandler} />
+          <Button type="submit" caption="Войти" disabled={disabled} />
           <div className="form__footer">
             Новый пользователь?
             <span onClick={props.linkHandler}>Регистрация</span>
@@ -42,4 +43,9 @@ export function LoginForm(props) {
       </div>
     </form>
   )
+}
+
+LoginForm.propTypes = {
+  formHandler: propTypes.func.isRequired,
+  linkHandler: propTypes.func.isRequired
 }

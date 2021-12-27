@@ -1,7 +1,14 @@
 import "./Button.css";
+import propTypes from "prop-types";
 
 export function Button(props) {
   return (
-      <button className="btn" disabled={props.disabled} onClick={props.handler}>{props.caption}</button>
+      <button type={props.type} className="btn" disabled={props.disabled}>{props.caption}</button>
   )
+}
+
+Button.propTypes = {
+  type: propTypes.string,
+  disabled: propTypes.bool,
+  caption: propTypes.string
 }
