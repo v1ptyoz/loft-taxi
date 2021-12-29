@@ -1,25 +1,26 @@
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import "./App.css"
 import { Login } from "./pages/Login/Login"
 import { Main } from "./pages/Main/Main"
-import dataContext from "./context";
+import { ProfileForm } from "./components/ProfileForm/ProfileForm"
 
+import dataContext from "./context";
+import { Routes, Route } from "react-router-dom";
 
 function App() {
-  let [currentPage, setCurrentPage] = useState('login');
   const context = useContext(dataContext);
   const {Provider} = dataContext;
-
-  function showPage(page) {
-    context.isLoggedIn ? setCurrentPage(page) : setCurrentPage("login")
-  }
   
   return (
     <Provider value={context}>
       <div className="App">
-        {currentPage === 'login' && <Login showPage={showPage} />}
-        {currentPage === 'main' && <Main currentPage={currentPage} showPage={showPage} />}
-        {currentPage === 'profile' && <Main currentPage={currentPage} showPage={showPage} />}
+      <Routes>
+        <Route path="login" element={<Login formType="login" />} />
+        <Route path="register" element={<Login formType="register" />} />
+        <Route path="/" element={<Main/> }>
+          <Route path="profile" element={<ProfileForm />} />
+        </Route>
+      </Routes>
       </div>
     </Provider>
   );
