@@ -1,19 +1,21 @@
 import "./Main.css";
 import { Header } from "../../components/Header/Header";
 import { Map } from "../../components/Map/Map";
-import propTypes from "prop-types";
+import dataContext from "../../context";
+import { useContext } from "react";
+import { Navigate, useLocation } from "react-router-dom";
 
-export function Main(props) {
-    
-  return (
+export function Main() {
+  const context = useContext(dataContext);
+  const location = useLocation();
+
+  return context.isLoggedIn ? (
     <div className="main-page">
-      <Header currentPage={props.currentPage} showPage={props.showPage} />
-      <Map currentPage={props.currentPage} showPage={props.showPage} />
+      <Header />
+      <Map />
     </div>
-  )
+  ) :
+  (
+    <Navigate to="login" state={{ from: location }} />
+  ) 
 }
-
-Main.propTypes = {
-  currentPage: propTypes.string.isRequired,
-  showPage: propTypes.func.isRequired,
-};
