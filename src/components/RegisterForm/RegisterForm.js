@@ -1,11 +1,12 @@
-import "./RegisterForm.css";
 import { Button } from "../Button/Button";
 import { useState } from "react";
-import propTypes from "prop-types";
 import { Box } from "@mui/system";
 import { TextField } from "@mui/material";
+import { useContext } from "react";
+import dataContext from "../../context";
+import { useNavigate, useLocation, Link } from "react-router-dom";
 
-export function RegisterForm(props) {
+export function RegisterForm() {
   let [email, setEmail] = useState();
   let [password, setPassword] = useState();
   let [name, setName] = useState();
@@ -19,9 +20,21 @@ export function RegisterForm(props) {
     }
   }
 
+  const context = useContext(dataContext);
+
+  const navigate = useNavigate()
+  const location = useLocation()
+  const { from } = location.state || { from: { pathname: "/" } }
+
+  const submit = (event) => {
+    event.preventDefault();
+    context.login();
+    navigate(from);
+  }
+
   return (
     <Box>
-      <form className="form" onSubmit={props.formHandler}>
+      <form className="form" onSubmit={submit}>
         <div className="form__wrapper">
           <div className="form__header">
             <h2>Регистрация</h2>
@@ -58,16 +71,11 @@ export function RegisterForm(props) {
             <Button caption="Войти" type="submit" disabled={disabled}/>
             <div className="form__footer">
               Уже зарегистрированы?
-              <span onClick={props.linkHandler}>Войти</span>
+              <Link to="/login">Войти</Link>
             </div>
           </div>
         </div>
       </form>
     </Box>
   )
-}
-
-RegisterForm.propTypes = {
-  formHandler: propTypes.func.isRequired,
-  linkHandler: propTypes.func.isRequired
 }
