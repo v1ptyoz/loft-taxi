@@ -37,7 +37,7 @@
   color: #828282;
   text-align: center;
 }
-.form__footer span {
+.form__footer a {
   display: inline-block;
   color: #FDBF5A;
   margin-left: 4px;
