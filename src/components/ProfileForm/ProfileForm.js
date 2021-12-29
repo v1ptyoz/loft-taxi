@@ -1,18 +1,19 @@
 import { Button } from "../Button/Button";
 import { Card } from "../Card/Card";
 import "./ProfileForm.css";
-import propTypes from "prop-types";
+import { useNavigate } from "react-router-dom";
 
-export function ProfileForm(props) {
+export function ProfileForm() {
+  const navigate = useNavigate()
 
-  const formHandler = (event) => {
+  const submit = (event) => {
     event.preventDefault();
-    props.showPage("main");
+    navigate("/");
   }
 
   return (
     <div className="profile">
-      <form className="profile__form form" onSubmit={formHandler}>
+      <form className="profile__form form" onSubmit={submit}>
         <div className="form__wrapper">
           <div className="form__header">
             <h2>Профиль</h2>
@@ -50,8 +51,4 @@ export function ProfileForm(props) {
       </form>
     </div>
   )
-}
-
-ProfileForm.propTypes = {
-  showPage: propTypes.func.isRequired
 }
