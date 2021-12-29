@@ -1,11 +1,12 @@
-import propTypes from 'prop-types';
+import "./Header.css"
 import {Logo} from 'loft-taxi-mui-theme';
-import {AppBar, Box, Toolbar, Button} from '@mui/material';
+import {AppBar, Box, Toolbar} from '@mui/material';
+import { NavLink } from 'react-router-dom';
+import { useContext } from "react";
+import dataContext from "../../context";
 
-export function Header(props) {
-  const NAVS = [{name: 'main', text: 'Карта'}, 
-                {name: 'profile', text: 'Профиль'}, 
-                {name: 'login', text: 'Выйти'}]
+export function Header() {
+  const context = useContext(dataContext);
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar sx={{ backgroundColor: '#1C1A19', position: 'static'}}>
@@ -15,29 +16,32 @@ export function Header(props) {
               sx={{ mr: 2 }}
             />
           </Box>
-          <Box>
-            {
-              NAVS.map((item, index) => {
-                return (
-                  <Button 
-                    key={index}
-                    color="inherit"
-                    onClick={() => {props.showPage(item.name)}}
-                    sx={{ textTransform: "none", fontSize: "21px", ml: "44px", '&:hover': {color: "#FDBF5A"}}}
-                    >
-                    {item.text}
-                  </Button>
-                )
-              })
-            }
+          <Box sx={{display: "flex", gap: "44px"}}>
+            <NavLink 
+              to="/" 
+              end 
+              className={({ isActive }) => isActive ? "header__link header__link--active" : "header__link" }
+              >
+              Карта
+            </NavLink>
+            <NavLink 
+              to="profile" 
+              end 
+              className={({ isActive }) => isActive ? "header__link header__link--active" : "header__link" }
+              >
+              Профиль
+            </NavLink>
+            <NavLink 
+              to="/login" 
+              end 
+              className={({ isActive }) => isActive ? "header__link header__link--active" : "header__link" }
+              onClick={context.logout}
+              >
+              Выход
+            </NavLink>
           </Box>
         </Toolbar>
       </AppBar>
     </Box>
   )
 }
-
-Header.propTypes = {
-  currentPage: propTypes.string.isRequired,
-  showPage: propTypes.func.isRequired
-};
