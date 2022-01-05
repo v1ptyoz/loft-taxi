@@ -7,7 +7,9 @@ import { connect } from "react-redux";
 import { loadCard } from "./modules/card"
 
 function App(props) {
-  props.loadCard(props.user.token);
+  if (props.user.token) {
+    props.loadCard(props.user.token);
+  }
   return (
     <div className="App">
     <Routes>
