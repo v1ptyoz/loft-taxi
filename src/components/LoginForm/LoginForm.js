@@ -3,11 +3,11 @@ import { Button } from "../Button/Button";
 import { useState } from "react";
 import { Box } from "@mui/system";
 import { TextField } from "@mui/material";
-import { useContext } from "react";
-import dataContext from "../../context";
-import { useNavigate, useLocation, Link } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
+import { connect } from "react-redux";
+import { auth } from "../../modules/user";
 
-export function LoginForm() {
+function LoginForm(props) {
   let [email, setEmail] = useState();
   let [password, setPassword] = useState();
   let [disabled, setDisabled] = useState(true);
@@ -20,16 +20,12 @@ export function LoginForm() {
     }
   }
 
-  const context = useContext(dataContext);
-
   const navigate = useNavigate()
-  const location = useLocation()
-  const { from } = location.state || { from: { pathname: "/" } }
 
-  const submit = (event) => {
+  const submit = async (event) => {
     event.preventDefault();
-    context.login();
-    navigate(from);
+    await props.auth({email, password});
+    navigate("/");
   }
 
   return (
@@ -47,6 +43,7 @@ export function LoginForm() {
               label="Email"
               variant="standard"
               sx={{ width: "100%", mb: "35px"}}
+              name="email"
               onInput={(event) => { setEmail(event.target.value); checkInput() }}
             />
             <TextField
@@ -58,6 +55,7 @@ export function LoginForm() {
               label="Пароль"
               variant="standard"
               sx={{ width: "100%", mb: "30px"}}
+              name="password"
               onInput={(event) => { setPassword(event.target.value); checkInput() }}
             />
             <div className="forgot">
@@ -74,3 +72,8 @@ export function LoginForm() {
     </Box>
   )
 }
+
+export default connect(
+  (state) => ({isLoggedIn: state.user.isLoggedIn}),
+  { auth }
+)(LoginForm);
