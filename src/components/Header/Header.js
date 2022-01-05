@@ -2,11 +2,10 @@ import "./Header.css"
 import {Logo} from 'loft-taxi-mui-theme';
 import {AppBar, Box, Toolbar} from '@mui/material';
 import { NavLink } from 'react-router-dom';
-import { useContext } from "react";
-import dataContext from "../../context";
+import { connect } from "react-redux";
+import { logOut } from "../../modules/user";
 
-export function Header() {
-  const context = useContext(dataContext);
+function Header(props) {
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar sx={{ backgroundColor: '#1C1A19', position: 'static'}}>
@@ -35,7 +34,7 @@ export function Header() {
               to="/login" 
               end 
               className={({ isActive }) => isActive ? "header__link header__link--active" : "header__link" }
-              onClick={context.logout}
+              onClick={props.logOut}
               >
               Выход
             </NavLink>
@@ -45,3 +44,8 @@ export function Header() {
     </Box>
   )
 }
+
+export default connect(
+  (state) => ({isLoggedIn: state.user.isLoggedIn}),
+  { logOut }
+)(Header);

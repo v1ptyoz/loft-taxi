@@ -1,21 +1,21 @@
 import "./Main.css";
-import { Header } from "../../components/Header/Header";
+import Header from "../../components/Header/Header";
 import { Map } from "../../components/Map/Map";
-import dataContext from "../../context";
-import { useContext } from "react";
-import { Navigate, useLocation } from "react-router-dom";
+import { Navigate } from "react-router-dom";
+import { connect } from "react-redux";
 
-export function Main() {
-  const context = useContext(dataContext);
-  const location = useLocation();
-
-  return context.isLoggedIn ? (
+function Main(props) {
+  return props.isLoggedIn ? (
     <div className="main-page">
       <Header />
       <Map />
     </div>
   ) :
   (
-    <Navigate to="login" state={{ from: location }} />
+    <Navigate to="login" />
   ) 
 }
+
+export default connect(
+  (state) => ({isLoggedIn: state.user.isLoggedIn}),
+)(Main);
