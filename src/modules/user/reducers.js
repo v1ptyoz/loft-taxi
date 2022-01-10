@@ -18,18 +18,6 @@ const user = (state = initState, action) => {
       return {
         isLoggedIn: false,
       }
-    // case loadUserData.toString():
-    //   if (localStorage.getItem("token")) {
-    //     return {
-    //       isLoggedIn: true,
-    //       token: localStorage.getItem("token")
-    //     }
-    //   } else {
-    //       return {
-    //         isLoggedIn: false,
-    //         token: ""
-    //       }
-    //   }
     default: return state;
   }
  }
