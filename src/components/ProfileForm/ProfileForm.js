@@ -4,13 +4,22 @@ import "./ProfileForm.css";
 import { useNavigate } from "react-router-dom";
 import { connect } from "react-redux";
 import { sendCard, getCard } from "../../modules/card"
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 function ProfileForm(props) {
-  const [cardNumber, setCardNumber] = useState(props.card.cardNumber);
-  const [expiryDate, setExpiryDate] = useState(props.card.expiryDate);
-  const [cardName, setCardName] = useState(props.card.cardName);
-  const [cvc, setCvc] = useState(props.card.cvc);
+  const [cardNumber, setCardNumber] = useState("");
+  const [expiryDate, setExpiryDate] = useState("");
+  const [cardName, setCardName] = useState("");
+  const [cvc, setCvc] = useState("");
+
+  useEffect(() => {
+    if (props.card) {
+      setCardNumber(props.card.cardNumber);
+      setExpiryDate(props.card.expiryDate);
+      setCardName(props.card.cardName);
+      setCvc(props.card.cvc);
+    }
+  }, [props.card])
 
   const navigate = useNavigate()
 
