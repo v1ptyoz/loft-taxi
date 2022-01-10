@@ -9,7 +9,6 @@ export const cardRequest = (store) => (next) => async (action) => {
     }
   } if (action.type === loadCard.toString()) {
       const response = await api.getCard(action.payload);
-      console.log(response);
       if (response.status === 200) {
         store.dispatch(setCard(response.data));
       }
