@@ -5,15 +5,15 @@ import api from "../modules/api";
 jest.mock("../modules/api", () => ({login: jest.fn()}));
 
 describe("user middleware", () => {
-  describe("#AUTH", () => {
+  describe("AUTH", () => {
     it("auth through api", async () => {
+      api.login.mockImplementation(() => ({data: {success: true}}));
       const dispatch = jest.fn();
-
       await doAuth({dispatch})()(
-        auth("testLogin", "testPassword")
+        auth({email: "testLogin", password: "testPassword"})
       )
 
-      expect(api.login).toBeCalledWith("testLogin", "testPassword");
+      expect(api.login).toBeCalledWith({email: "testLogin", password: "testPassword"});
     })
   })
 })
