@@ -18,7 +18,7 @@ export function Map() {
   }, [])
   
   return (
-    <div className="map" ref={mapContainer}>
+    <div className="map" ref={mapContainer} data-testid="map">
       <Outlet />
     </div>
   )
