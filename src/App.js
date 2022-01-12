@@ -5,11 +5,16 @@ import ProfileForm from "./components/ProfileForm/ProfileForm"
 import { Routes, Route } from "react-router-dom";
 import { connect } from "react-redux";
 import { loadCard } from "./modules/card"
+import { useEffect } from "react";
 
 function App(props) {
-  if (props.user.token) {
-    props.loadCard(props.user.token);
-  }
+  
+  useEffect(() => {
+    if (props.user.token) {
+      props.loadCard(props.user.token);
+    }
+  }, [props.user.token])
+
   return (
     <div className="App">
     <Routes>
