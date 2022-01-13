@@ -10,10 +10,16 @@ export function doLogin(data) {
   return fetch.post("/auth", data)
 }
 
+export function doSetCard(data) {
+  return fetch.post("/card", data)
+}
+
+export function doGetCard(token) {
+  return fetch.get(`/card?token=${token}`, token)
+}
+
 const server = {
   register: (data) => fetch.post("/register", data),
-  setCard: (data) => fetch.post("/card", data),
-  getCard: (token) => fetch.get(`/card?token=${token}`),
   getRoute: () => fetch.get("/route"),
   getAddressList: () => fetch.get("/addressList")
 }
