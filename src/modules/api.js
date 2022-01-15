@@ -15,13 +15,13 @@ export function doSetCard(data) {
 }
 
 export function doGetCard(token) {
-  return fetch.get(`/card?token=${token}`, token)
+  return fetch.get(`/card?token=${token}`, token);
 }
 
-const server = {
-  register: (data) => fetch.post("/register", data),
-  getRoute: () => fetch.get("/route"),
-  getAddressList: () => fetch.get("/addressList")
+export function doGetAddressList() {
+  return fetch.get("/addressList")
 }
 
-export default server;
+export function getRoute() {
+  return fetch.get("/route")
+}
