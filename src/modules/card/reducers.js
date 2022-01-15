@@ -1,6 +1,7 @@
 import {setCard} from "./actions";
 
 const initState = {
+    isExist: false,
     cardNumber: "",
     expiryDate: "",
     cardName: "",
@@ -15,6 +16,7 @@ const card = (state = initState, action) => {
         expiryDate: action.payload.expiryDate,
         cardName: action.payload.cardName,
         cvc: action.payload.cvc,
+        isExist: true
       }
     default: return state;
   }
