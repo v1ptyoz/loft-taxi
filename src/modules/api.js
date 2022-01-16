@@ -22,6 +22,7 @@ export function doGetAddressList() {
   return fetch.get("/addressList")
 }
 
-export function getRoute() {
-  return fetch.get("/route")
+export function doGetRoute(data) {
+  const [address1, address2, ] = data;
+  return fetch.get(`/route?address1=${address1}&address2=${address2}`)
 }
