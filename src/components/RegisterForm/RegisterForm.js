@@ -1,9 +1,12 @@
-import "./RegisterForm.css";
 import { Button } from "../Button/Button";
 import { useState } from "react";
-import propTypes from "prop-types";
+import { Box } from "@mui/system";
+import { TextField } from "@mui/material";
+import { useContext } from "react";
+import dataContext from "../../context";
+import { useNavigate, useLocation, Link } from "react-router-dom";
 
-export function RegisterForm(props) {
+export function RegisterForm() {
   let [email, setEmail] = useState();
   let [password, setPassword] = useState();
   let [name, setName] = useState();
@@ -17,37 +20,62 @@ export function RegisterForm(props) {
     }
   }
 
+  const context = useContext(dataContext);
+
+  const navigate = useNavigate()
+  const location = useLocation()
+  const { from } = location.state || { from: { pathname: "/" } }
+
+  const submit = (event) => {
+    event.preventDefault();
+    context.login();
+    navigate(from);
+  }
+
   return (
-    <form className="form" onSubmit={props.formHandler}>
-      <div className="form__wrapper">
-        <div className="form__header">
-          <h2>Регистрация</h2>
-        </div>
-        <div className="form__content">
-          <label className="form__input-text">
-            <span>Email</span>
-            <input data-testid="email" type="text" placeholder="Email" onInput={(event) => {setEmail(event.target.value); checkInput()}}/>
-          </label>
-          <label className="form__input-text">
-            <span>Как вас зовут</span>
-            <input data-testid="name" type="text" placeholder="Введите имя" onInput={(event) => {setName(event.target.value); checkInput()}}/>
-          </label>
-          <label className="form__input-text">
-            <span>Придумайте пароль</span>
-            <input data-testid="password" type="password" placeholder="Пароль" onInput={(event) => {setPassword(event.target.value); checkInput()}}/>
-          </label>
-          <Button caption="Войти" type="submit" disabled={disabled}/>
-          <div className="form__footer">
-            Уже зарегистрированы?
-            <span onClick={props.linkHandler}>Войти</span>
+    <Box>
+      <form className="form" onSubmit={submit}>
+        <div className="form__wrapper">
+          <div className="form__header">
+            <h2>Регистрация</h2>
+          </div>
+          <div className="form__content">
+            <TextField
+              required
+              id="standard-required"
+              label="Email"
+              variant="standard"
+              sx={{ width: "100%", mb: "35px"}}
+              onInput={(event) => {setEmail(event.target.value); checkInput()}}
+            />
+            <TextField
+              required
+              id="standard-required"
+              data-testid="name"
+              label="Как вас зовут?"
+              variant="standard"
+              sx={{ width: "100%", mb: "35px"}}
+              onInput={(event) => { setName(event.target.value); checkInput() }}
+            />
+            <TextField
+              required
+              id="standard-password-input"
+              data-testid="password"
+              type="password"
+              autoComplete="current-password"
+              label="Придумайте пароль"
+              variant="standard"
+              sx={{ width: "100%", mb: "50px"}}
+              onInput={(event) => { setPassword(event.target.value); checkInput() }}
+            />
+            <Button caption="Войти" type="submit" disabled={disabled}/>
+            <div className="form__footer">
+              Уже зарегистрированы?
+              <Link to="/login">Войти</Link>
+            </div>
           </div>
         </div>
-      </div>
-    </form>
+      </form>
+    </Box>
   )
-}
-
-RegisterForm.propTypes = {
-  formHandler: propTypes.func.isRequired,
-  linkHandler: propTypes.func.isRequired
 }

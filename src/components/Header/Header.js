@@ -1,34 +1,51 @@
-import './Header.css';
-import logo from './logo.png'
-import propTypes from 'prop-types';
+import "./Header.css"
+import {Logo} from 'loft-taxi-mui-theme';
+import {AppBar, Box, Toolbar} from '@mui/material';
+import { NavLink } from 'react-router-dom';
+import { connect } from "react-redux";
+import { logOut } from "../../modules/user";
 
-export function Header(props) {
-  const NAVS = [{name: 'main', text: 'Карта'}, 
-                {name: 'profile', text: 'Профиль'}, 
-                {name: 'login', text: 'Выйти'}]
+function Header(props) {
   return (
-    <header className="header">
-      <div>
-        <img src={logo} alt="Логотип" />
-      </div>
-      <nav className="nav">
-        <ul>
-          {
-            NAVS.map((item, index) => {
-              return (
-                <li key={index}>
-                  <span className={item.name === props.currentPage ? "active" :  ""} onClick={() => {props.showPage(item.name)}}>{item.text}</span>
-                </li>
-              )
-            })
-          }
-        </ul>
-      </nav>
-    </header>
+    <Box sx={{ flexGrow: 1 }}>
+      <AppBar sx={{ backgroundColor: '#1C1A19', position: 'static'}}>
+        <Toolbar sx={{ display: 'flex', justifyContent: 'space-between'}}>
+          <Box>
+            <Logo 
+              sx={{ mr: 2 }}
+            />
+          </Box>
+          <Box sx={{display: "flex", gap: "44px"}}>
+            <NavLink 
+              to="/" 
+              end 
+              className={({ isActive }) => isActive ? "header__link header__link--active" : "header__link" }
+              >
+              Карта
+            </NavLink>
+            <NavLink 
+              to="profile" 
+              end 
+              className={({ isActive }) => isActive ? "header__link header__link--active" : "header__link" }
+              >
+              Профиль
+            </NavLink>
+            <NavLink 
+              to="/login" 
+              end 
+              className={({ isActive }) => isActive ? "header__link header__link--active" : "header__link" }
+              onClick={props.logOut}
+              >
+              Выход
+            </NavLink>
+          </Box>
+        </Toolbar>
+      </AppBar>
+    </Box>
   )
 }
 
-Header.propTypes = {
-  currentPage: propTypes.string.isRequired,
-  showPage: propTypes.func.isRequired
-};
+export default connect(
+  (state) => ({isLoggedIn: state.user.isLoggedIn}),
+  { logOut }
+)(Header);

@@ -1,19 +1,21 @@
 import "./Main.css";
-import { Header } from "../../components/Header/Header";
+import Header from "../../components/Header/Header";
 import { Map } from "../../components/Map/Map";
-import propTypes from "prop-types";
+import { Navigate } from "react-router-dom";
+import { connect } from "react-redux";
 
-export function Main(props) {
-    
-  return (
+function Main(props) {
+  return props.isLoggedIn ? (
     <div className="main-page">
-      <Header currentPage={props.currentPage} showPage={props.showPage} />
-      <Map currentPage={props.currentPage} showPage={props.showPage} />
+      <Header />
+      <Map />
     </div>
-  )
+  ) :
+  (
+    <Navigate to="login" />
+  ) 
 }
 
-Main.propTypes = {
-  currentPage: propTypes.string.isRequired,
-  showPage: propTypes.func.isRequired,
-};
+export default connect(
+  (state) => ({isLoggedIn: state.user.isLoggedIn}),
+)(Main);

@@ -1,37 +1,36 @@
 import "./Login.css";
 import logo from "./logo.png"
-import { LoginForm } from "../../components/LoginForm/LoginForm";
+import LoginForm from "../../components/LoginForm/LoginForm";
 import { RegisterForm } from "../../components/RegisterForm/RegisterForm";
-import { useContext, useState } from "react";
-import dataContext from "../../context";
 import propTypes from "prop-types";
+import { Link } from "react-router-dom";
+import { connect } from "react-redux";
+import { Navigate } from "react-router-dom";
 
-export function Login(props) {
-  let [formType, setFormType] = useState('login'); 
-
-  const context = useContext(dataContext);
-
-  const formHandler = (event) => {
-    event.preventDefault();
-    context.login();
-    props.showPage("main");
-  }
-
-  return (
+function Login(props) {
+  return !props.isLoggedIn ? (
     <div className="login-page">
       <div className="left">
-        <img src={logo} alt="Логотип"/>
+        <Link to={"/"}>
+          <img src={logo} alt="Логотип"/>
+        </Link>
       </div>
       <div className="right">
-        {formType === 'login' && 
-          <LoginForm linkHandler={() => setFormType("register")} formHandler={formHandler} />}
-        {formType === 'register' && 
-          <RegisterForm linkHandler={() => setFormType("login")} formHandler={formHandler} />}  
+        {props.formType === 'login' && 
+          <LoginForm />}
+        {props.formType === 'register' && 
+          <RegisterForm />}  
       </div>
     </div>
+  ) : (
+    <Navigate to="/" />
   )
 }
 
+export default connect(
+  (state) => ({isLoggedIn: state.user.isLoggedIn}),
+)(Login);
+
 Login.propTypes = {
-  showPage: propTypes.func.isRequired,
+  formType: propTypes.string.isRequired
 }

@@ -1,24 +1,11 @@
-.header {
-  background: #1C1A19;
-  padding: 20px 30px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-.nav ul {
-  display: flex;
-  gap: 44px;
-  list-style: none;
-}
-
-.nav ul span {
+.header__link {
   color: #ffffff;
   font-size: 21px;
   cursor: pointer;
 }
 
-.nav ul span.active,
-.nav ul span:hover {
+.header__link.header__link--active,
+.header__link:hover {
   color: #FDBF5A;
   text-decoration: none;
 }

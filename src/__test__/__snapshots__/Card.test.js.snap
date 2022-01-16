@@ -1,0 +1,23 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Button component Render normal via snapshot 1`] = `
+<div
+  className="card"
+>
+  <div
+    className="card__field card__field--date"
+  >
+    28/11
+  </div>
+  <div
+    className="card__field card__field--number"
+  >
+    1234 5678
+  </div>
+  <div
+    className="card__field card__field--cvc"
+  >
+    555
+  </div>
+</div>
+`;
