@@ -9,10 +9,13 @@ import { Button } from "../Button/Button";
 import { connect } from "react-redux";
 import { getAddresses } from "../../modules/addresses";
 import { getRoute } from "../../modules/route";
+import { useNavigate } from "react-router-dom";
 
 function RoutesForm(props) {
   const [from, setFrom] = useState('');
   const [to, setTo] = useState('');
+  const navigate = useNavigate()
+
   function drawRoute(map, coordinates) {
     if (map.getLayer("route")) {
       map.removeLayer("route");
@@ -70,12 +73,17 @@ function RoutesForm(props) {
   const submit = (event) => {
     event.preventDefault();
     if (from && to) {
-      props.getRoute([from, to, props.map.current]);
+      props.getRoute([from, to]);
     }
   }
 
-  return (
+  const handleIfNoCardBtn = (event) => {
+    navigate("/profile");
+  }
+
+  return props.card.isExist ? (
       <div className="routes">
+          <h2 className="routes__header">Заказ такси</h2>
           <form onSubmit={submit}>
             <Box>
               <FormControl variant="standard" sx={{ m: 1, minWidth: 400 }}>
@@ -124,10 +132,16 @@ function RoutesForm(props) {
             <Button caption="Заказать" type="submit" />
           </form>
       </div>
+  ) : (
+    <div className="routes">
+      <h2 className="routes__header">Для заказа такси необходимо указать платежные данные.</h2>
+      <h2 className="routes__header routes__header--mb50">Для этого нажмите кнопку ниже</h2>
+      <Button caption="Перейти к вводу данных" onClick={handleIfNoCardBtn}/>
+    </div>
   )
 }
 
 export default connect(
-  (state) => ({list: state.addresses.list}),
+  (state) => ({list: state.addresses.list, card: state.card, points: state.route.points}),
   { getAddresses, getRoute }
 )(RoutesForm);
