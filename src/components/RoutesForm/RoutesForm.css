@@ -8,3 +8,10 @@
   border-radius: 10px;
   padding: 34px 46px;
 }
+.routes__header {
+  text-align: center;
+}
+
+.routes__header--mb50 {
+  margin-bottom: 50px;
+}
