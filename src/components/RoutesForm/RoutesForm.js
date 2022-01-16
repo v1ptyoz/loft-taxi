@@ -8,6 +8,7 @@ import { useEffect, useState } from "react";
 import { Button } from "../Button/Button";
 import { connect } from "react-redux";
 import { getAddresses } from "../../modules/addresses";
+import { getRoute } from "../../modules/route";
 
 function RoutesForm(props) {
   const [from, setFrom] = useState('');
@@ -17,7 +18,7 @@ function RoutesForm(props) {
     if (props.list.length === 0) {
       props.getAddresses();
     }
-  }, [props.list.length])
+  }, [props])
 
   const handleFrom = (event) => {
     setFrom(event.target.value);
@@ -29,6 +30,9 @@ function RoutesForm(props) {
 
   const submit = (event) => {
     event.preventDefault();
+    if (from && to) {
+      props.getRoute([from, to, props.map.current]);
+    }
   }
 
   return (
@@ -86,5 +90,5 @@ function RoutesForm(props) {
 
 export default connect(
   (state) => ({list: state.addresses.list}),
-  { getAddresses }
+  { getAddresses, getRoute }
 )(RoutesForm);
