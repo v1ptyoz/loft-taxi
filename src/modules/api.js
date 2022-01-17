@@ -26,3 +26,7 @@ export function doGetRoute(data) {
   const [address1, address2, ] = data;
   return fetch.get(`/route?address1=${address1}&address2=${address2}`)
 }
+
+export function doRegister(data) {
+  return fetch.post("/register", data);
+}
