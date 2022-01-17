@@ -1,4 +1,3 @@
-import "./RoutesForm.css";
 import Box from "@mui/material/Box"
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
@@ -8,50 +7,66 @@ import { useEffect, useState } from "react";
 import { Button } from "../Button/Button";
 import { connect } from "react-redux";
 import { getAddresses } from "../../modules/addresses";
-import { getRoute } from "../../modules/route";
-import { useNavigate } from "react-router-dom";
+import { clearRoute, getRoute } from "../../modules/route";
 
-function RoutesForm(props) {
+function drawRoute(map, coordinates) {
+  if (map.getLayer("route")) {
+    map.removeLayer("route");
+  }
+  if (map.getSource("route")) {
+    map.removeSource("route");
+  }
+  map.flyTo({
+    center: coordinates[0],
+    zoom: 15
+  });
+ 
+  map.addLayer({
+    id: "route",
+    type: "line",
+    source: {
+      type: "geojson",
+      data: {
+        type: "Feature",
+        properties: {},
+        geometry: {
+          type: "LineString",
+          coordinates
+        }
+      }
+    },
+    layout: {
+      "line-join": "round",
+      "line-cap": "round"
+    },
+    paint: {
+      "line-color": "#ffc617",
+      "line-width": 8
+    }
+  });
+}; 
+
+function clearMap(map) {
+  if (map.getLayer("route")) {
+    map.removeLayer("route");
+  }
+  if (map.getSource("route")) {
+    map.removeSource("route");
+  }
+}
+
+function RoutesList(props) {
   const [from, setFrom] = useState('');
   const [to, setTo] = useState('');
-  const navigate = useNavigate()
 
-  function drawRoute(map, coordinates) {
-    if (map.getLayer("route")) {
-      map.removeLayer("route");
-    }
-    if (map.getSource("route")) {
-      map.removeSource("route");
-    }
-    map.flyTo({
-      center: coordinates[0],
-      zoom: 15
+  function newOrderHandler() {
+    clearMap(props.map.current);
+    props.clearRoute();
+    props.map.current.flyTo({
+      center: [30.3228,59.9327],
+      zoom: 12
     });
-   
-    map.addLayer({
-      id: "route",
-      type: "line",
-      source: {
-        type: "geojson",
-        data: {
-          type: "Feature",
-          properties: {},
-          geometry: {
-            type: "LineString",
-            coordinates
-          }
-        }
-      },
-      layout: {
-        "line-join": "round",
-        "line-cap": "round"
-      },
-      paint: {
-        "line-color": "#ffc617",
-        "line-width": 8
-      }
-    });
-  };
+  }
 
   useEffect(() => {
     if (props.list.length === 0) {
@@ -77,13 +92,9 @@ function RoutesForm(props) {
     }
   }
 
-  const handleIfNoCardBtn = (event) => {
-    navigate("/profile");
-  }
-
-  return props.card.isExist ? (
-      <div className="routes">
-          <h2 className="routes__header">Заказ такси</h2>
+  return !props.isOrdered ? (
+    <div className="modal routes">
+          <h2 className="modal__header">Заказ такси</h2>
           <form onSubmit={submit}>
             <Box>
               <FormControl variant="standard" sx={{ m: 1, minWidth: 400 }}>
@@ -133,15 +144,15 @@ function RoutesForm(props) {
           </form>
       </div>
   ) : (
-    <div className="routes">
-      <h2 className="routes__header">Для заказа такси необходимо указать платежные данные.</h2>
-      <h2 className="routes__header routes__header--mb50">Для этого нажмите кнопку ниже</h2>
-      <Button caption="Перейти к вводу данных" onClick={handleIfNoCardBtn}/>
+    <div className="modal">
+      <h2 className="modal__header">Заказ размещен</h2>
+      <p>Ваше такси уже едет к вам. Прибудет приблизительно через 10 минут.</p>
+      <Button caption="Сделать новый заказ" type="submit" onClick={newOrderHandler} />
     </div>
   )
 }
 
 export default connect(
-  (state) => ({list: state.addresses.list, card: state.card, points: state.route.points}),
-  { getAddresses, getRoute }
-)(RoutesForm);
+  (state) => ({list: state.addresses.list, card: state.card, points: state.route.points, isOrdered: state.route.isOrdered}),
+  { getAddresses, getRoute, clearRoute }
+)(RoutesList);
