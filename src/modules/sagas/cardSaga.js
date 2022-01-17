@@ -5,7 +5,7 @@ import { takeEvery, call, put } from "redux-saga/effects";
 export function* getCardSaga() {
   yield takeEvery(loadCard, function*({payload}) {
     const response = yield call(doGetCard, payload);
-    if (response.status === 200) {
+    if (response.data.hasOwnProperty("cardNumber")) {
       yield put(setCard(response.data));
     }
   })
