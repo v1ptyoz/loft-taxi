@@ -1,20 +1,21 @@
 import { recordSaga } from "./helpers";
-import { authSaga } from  "../modules/sagas/authSaga";
+import { authorizationSaga } from  "../modules/sagas/authSaga";
 import { auth } from "../modules/user/actions";
 import { doLogin } from "../modules/api"
 
-jest.mock("../modules/api", () => ({doLogin: jest.fn()}));
+jest.mock("../modules/api");
 
 describe("authSaga test", () => {
   it("auth via api", async () => {
-    doLogin.mockImplementation(() => ({data: {success: true}}));
+    doLogin.mockImplementation(() => ({data: {success: true, token: "testToken"}}));
     const dispatched = await recordSaga(
-      authSaga,
+      authorizationSaga,
       auth({login: "testLogin", password: "testPassword"})
     )
     expect(dispatched).toEqual([
       {
-        type: "loft-taxi/user/logIn"
+        type: "loft-taxi/user/logIn",
+        payload: "testToken"
       }
     ])
   })
