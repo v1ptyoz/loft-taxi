@@ -1,67 +1,61 @@
 import "./LoginForm.css";
 import { Button } from "../Button/Button";
-import { useState } from "react";
 import { Box } from "@mui/system";
 import { TextField } from "@mui/material";
 import { useNavigate, Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { auth } from "../../modules/user";
+import { useForm, Controller } from "react-hook-form";
 
 function LoginForm(props) {
-  let [email, setEmail] = useState();
-  let [password, setPassword] = useState();
-  let [disabled, setDisabled] = useState(true);
-
-  function checkInput() {
-    if (email && password) {
-      setDisabled(false)
-    } else {
-      setDisabled(true)
+  const { handleSubmit, control, formState: { errors } } = useForm({
+    defaultValues: {
+      email: '',
+      password: ''
     }
-  }
+  });
 
   const navigate = useNavigate()
 
-  const submit = async (event) => {
-    event.preventDefault();
-    await props.auth({email, password});
-    navigate("/");
+  const onSubmit = async data => {
+    await props.auth(data);
+    if (props.isLoggedIn) {
+      navigate("/");
+    }
   }
 
   return (
     <Box>
-      <form className="form" onSubmit={submit}>
+      <form className="form" onSubmit={handleSubmit(onSubmit)}>
         <div className="form__wrapper">
           <div className="form__header">
             <h2>Войти</h2>
           </div>
           <div className="form__content">
-            <TextField
-              required
-              id="standard-required"
-              data-testid="email"
-              label="Email"
-              variant="standard"
-              sx={{ width: "100%", mb: "35px"}}
+            <Controller
               name="email"
-              onInput={(event) => { setEmail(event.target.value); checkInput() }}
+              control={control}
+              rules={{ 
+                required: {value: true, message: "Поле обязательно для заполнения" },
+                pattern: {
+                  value: /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+                  message: "Поле заполнено неправильно"
+              } }}
+              render={({ field }) => <TextField {...field} label="Email" variant="standard" sx={{ width: "100%", mb: "35px"}} />}
             />
-            <TextField
-              required
-              id="standard-password-input"
-              data-testid="password"
-              type="password"
-              autoComplete="current-password"
-              label="Пароль"
-              variant="standard"
-              sx={{ width: "100%", mb: "30px"}}
+              {errors.email && <p className="error-message">{errors.email.message}</p>}
+            <Controller
               name="password"
-              onInput={(event) => { setPassword(event.target.value); checkInput() }}
+              control={control}
+              rules={{ required: true }}
+              render={({ field }) => <TextField {...field} label="Пароль" variant="standard" sx={{ width: "100%", mb: "30px"}} type="password" autoComplete="current-password"/>}
             />
+              {errors.password && <p className="error-message">Поле обязательно для заполнения</p>}
+
             <div className="forgot">
               <span>Забыли пароль</span>
             </div>
-            <Button type="submit" disabled={disabled} caption="Войти" />
+            <Button type="submit" caption="Войти" />
             <div className="form__footer">
               Новый пользователь?
               <Link to="/register">Регистрация</Link>
