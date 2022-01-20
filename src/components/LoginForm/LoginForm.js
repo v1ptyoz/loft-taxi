@@ -7,7 +7,6 @@ import { connect } from "react-redux";
 import { auth } from "../../modules/user";
 import { useForm, Controller } from "react-hook-form";
 import messages from "../../modules/errors";
-import { useState } from "react";
 
 function LoginForm(props) {
   const { handleSubmit, control, formState: { errors } } = useForm({
