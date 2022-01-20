@@ -6,6 +6,7 @@ import { connect } from "react-redux";
 import { register } from "../../modules/user";
 import { useForm, Controller } from "react-hook-form";
 import './RegisterForm.css'
+import messages from "../../modules/errors";
 
 function RegisterForm(props) {
   const { handleSubmit, control, formState: { errors } } = useForm({
@@ -44,10 +45,10 @@ function RegisterForm(props) {
               name="email"
               control={control}
               rules={{ 
-                required: {value: true, message: "Поле обязательно для заполнения" },
+                required: {value: true, message: messages.required },
                 pattern: {
                   value: /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
-                  message: "Поле заполнено неправильно"
+                  message: messages.wrong
               } }}
               render={({ field }) => <TextField {...field} label="Email" variant="standard" sx={{ width: "100%", mb: "35px"}} />}
             />
@@ -55,7 +56,7 @@ function RegisterForm(props) {
             <Controller
               name="fullName"
               control={control}
-              rules={{ required: {value: true, message: "Поле обязательно для заполнения" } }}
+              rules={{ required: {value: true, message: messages.required } }}
               render={({ field }) => <TextField {...field} label="Как вас зовут?" variant="standard" sx={{ width: "100%", mb: "35px"}} />}
             />
             {errors.fullName && <p className="error-message">{errors.fullName.message}</p>}
@@ -66,12 +67,12 @@ function RegisterForm(props) {
                 { required: 
                   {
                     value: true, 
-                    message: "Поле обязательно для заполнения"
+                    message: messages.required
                   }, 
                   minLength: 
                   {
                     value: 6, 
-                    message: "Минимальная длина пароля - 6 символов"
+                    message: messages.minLen(6)
                   } 
               }}
               render={({ field }) => <TextField {...field} label="Пароль" variant="standard" sx={{ width: "100%", mb: "30px"}} type="password" autoComplete="current-password"/>}
