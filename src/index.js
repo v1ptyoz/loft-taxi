@@ -9,11 +9,13 @@ import { BrowserRouter } from "react-router-dom";
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware, compose } from "redux";
 import appState from "./modules/reducers";
-import { doAuth } from './modules/user';
-import { cardRequest } from "./modules/card"
+import createSagaMiddleware from 'redux-saga';
+import { mainSaga } from './modules/sagas/sagas';
 
+const sagaMiddleware = createSagaMiddleware();
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
-const store = createStore(appState, composeEnhancers(applyMiddleware(doAuth, cardRequest)));
+const store = createStore(appState, composeEnhancers(applyMiddleware(sagaMiddleware)));
+sagaMiddleware.run(mainSaga);
 
 ReactDOM.render(
   <Provider store={store}>

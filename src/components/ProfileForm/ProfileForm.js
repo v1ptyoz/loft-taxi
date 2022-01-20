@@ -11,6 +11,7 @@ function ProfileForm(props) {
   const [expiryDate, setExpiryDate] = useState("");
   const [cardName, setCardName] = useState("");
   const [cvc, setCvc] = useState("");
+  const [isSaveBtnClicked, setIsSaveBtnClicked] = useState(false);
 
   useEffect(() => {
     if (props.card) {
@@ -26,12 +27,16 @@ function ProfileForm(props) {
   const submit = async (event) => {
     event.preventDefault();
     await props.sendCard({cardNumber, expiryDate, cardName, cvc, token: props.token})
+    setIsSaveBtnClicked(true)
+  }
+
+  const goToMapBtnHandler = (event) => {
     navigate("/");
   }
 
-  return (
+  return !isSaveBtnClicked ? (
     <div className="profile">
-      <form className="profile__form form" onSubmit={submit}>
+      <form className="profile__wrapper form" onSubmit={submit}>
         <div className="form__wrapper">
           <div className="form__header">
             <h2>Профиль</h2>
@@ -67,6 +72,14 @@ function ProfileForm(props) {
           </div>
         </div>
       </form>
+    </div>
+  ) : (
+    <div className="profile">
+      <div className="profile__wrapper">
+        <h1>Профиль</h1>
+        <p>Платёжные данные обновлены. Теперь вы можете заказывать такси.</p>
+        <Button caption="Перейти на карту" onClick={goToMapBtnHandler}/>
+      </div>
     </div>
   )
 }

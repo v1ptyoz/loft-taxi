@@ -1,12 +1,12 @@
 import { Button } from "../Button/Button";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Box } from "@mui/system";
 import { TextField } from "@mui/material";
-import { useContext } from "react";
-import dataContext from "../../context";
-import { useNavigate, useLocation, Link } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
+import { connect } from "react-redux";
+import { register } from "../../modules/user";
 
-export function RegisterForm() {
+function RegisterForm(props) {
   let [email, setEmail] = useState();
   let [password, setPassword] = useState();
   let [name, setName] = useState();
@@ -20,17 +20,23 @@ export function RegisterForm() {
     }
   }
 
-  const context = useContext(dataContext);
+  const navigate = useNavigate();
 
-  const navigate = useNavigate()
-  const location = useLocation()
-  const { from } = location.state || { from: { pathname: "/" } }
-
-  const submit = (event) => {
+  const submit = async (event) => {
     event.preventDefault();
-    context.login();
-    navigate(from);
+    await props.register({
+      email,
+      password,
+      name: name.split(" ")[0],
+      surname: name.split(" ")[1],
+    });
   }
+
+  useEffect(() => {
+    if (props.isLoggedIn) {
+      navigate("/");
+    }
+  }, [props])
 
   return (
     <Box>
@@ -79,3 +85,8 @@ export function RegisterForm() {
     </Box>
   )
 }
+
+export default connect(
+  (state) => ({isLoggedIn: state.user.isLoggedIn}),
+  { register }
+)(RegisterForm);

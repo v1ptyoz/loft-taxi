@@ -1,7 +1,7 @@
 import "./Login.css";
 import logo from "./logo.png"
 import LoginForm from "../../components/LoginForm/LoginForm";
-import { RegisterForm } from "../../components/RegisterForm/RegisterForm";
+import RegisterForm from "../../components/RegisterForm/RegisterForm";
 import propTypes from "prop-types";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";

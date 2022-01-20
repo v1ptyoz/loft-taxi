@@ -6,13 +6,27 @@ const fetch = axios.create({
   baseURL: URL,
 })
 
-const server = {
-  register: (data) => fetch.post("/register", data),
-  login: (data) => fetch.post("/auth", data),
-  setCard: (data) => fetch.post("/card", data),
-  getCard: (token) => fetch.get(`/card?token=${token}`),
-  getRoute: () => fetch.get("/route"),
-  getAddressList: () => fetch.get("/addressList")
+export function doLogin(data) {
+  return fetch.post("/auth", data)
 }
 
-export default server;
+export function doSetCard(data) {
+  return fetch.post("/card", data)
+}
+
+export function doGetCard(token) {
+  return fetch.get(`/card?token=${token}`, token);
+}
+
+export function doGetAddressList() {
+  return fetch.get("/addressList")
+}
+
+export function doGetRoute(data) {
+  const [address1, address2, ] = data;
+  return fetch.get(`/route?address1=${address1}&address2=${address2}`)
+}
+
+export function doRegister(data) {
+  return fetch.post("/register", data);
+}
