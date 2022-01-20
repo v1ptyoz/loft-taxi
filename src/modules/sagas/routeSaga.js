@@ -11,7 +11,7 @@ export function* routesSaga({payload}) {
 }
 
 export function* routeSaga() {
-  yield takeEvery(getRoute, routeSaga)
+  yield takeEvery(getRoute, routesSaga)
 }
 
 
