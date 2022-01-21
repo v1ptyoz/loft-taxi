@@ -9,7 +9,7 @@ import './RegisterForm.css'
 import messages from "../../modules/errors";
 
 function RegisterForm(props) {
-  const { handleSubmit, control, formState: { errors } } = useForm({
+  const { handleSubmit, control, reset, formState: { errors } } = useForm({
     defaultValues: {
       email: '',
       fullName: '',
@@ -29,6 +29,7 @@ function RegisterForm(props) {
       surname
     });
     if (props.isLoggedIn) {
+      reset();
       navigate("/");
     }
   }
@@ -41,6 +42,9 @@ function RegisterForm(props) {
             <h2>Регистрация</h2>
           </div>
           <div className="form__content">
+            <div className="error-block">
+                {props.userError && <p className="error-message">{props.userError}</p>}
+              </div>
             <Controller
               name="email"
               control={control}
@@ -56,7 +60,7 @@ function RegisterForm(props) {
             <Controller
               name="fullName"
               control={control}
-              rules={{ required: {value: true, message: messages.required } }}
+              rules={{ required: {value: true, message: messages.required }, pattern: {value: /.+ .+/, message: messages.nows} }}
               render={({ field }) => <TextField {...field} label="Как вас зовут?" variant="standard" sx={{ width: "100%", mb: "35px"}} />}
             />
             {errors.fullName && <p className="error-message">{errors.fullName.message}</p>}
@@ -78,7 +82,7 @@ function RegisterForm(props) {
               render={({ field }) => <TextField {...field} label="Пароль" variant="standard" sx={{ width: "100%", mb: "30px"}} type="password" autoComplete="current-password"/>}
             />
             {errors.password && <p className="error-message">{errors.password.message}</p>}
-            <Button caption="Зарегистрироваться" type="submit" />
+            <Button caption="Зарегистрироваться" type="submit" disabled={props.isLoading} isLoading={props.isLoading} />
             <div className="form__footer">
               Уже зарегистрированы?
               <Link to="/login">Войти</Link>
@@ -91,6 +95,6 @@ function RegisterForm(props) {
 }
 
 export default connect(
-  (state) => ({isLoggedIn: state.user.isLoggedIn}),
+  (state) => ({isLoggedIn: state.user.isLoggedIn, isLoading: state.user.loading, userError: state.user.error}),
   { register }
 )(RegisterForm);
