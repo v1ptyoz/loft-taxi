@@ -52,6 +52,9 @@ function ProfileForm(props) {
             <h2>Профиль</h2>
             <span>Введите платежные данные</span>
           </div>
+          <div className="error-block">
+              {props.cardError && <p className="error-message">{props.cardError}</p>}
+            </div>
           <div className="form__content">
             <div className="form__left">
               <label className="form__input-text">
@@ -98,7 +101,7 @@ function ProfileForm(props) {
             </div>
           </div>
           <div className="form__buttons">
-            <Button caption="Сохранить" type="submit"></Button>
+            <Button caption="Сохранить" type="submit" disabled={props.card.loading} isLoading={props.card.loading} />
           </div>
         </div>
       </form>
@@ -115,6 +118,6 @@ function ProfileForm(props) {
 }
 
 export default connect(
-  (state) => ({card: state.card, token: state.user.token}),
+  (state) => ({card: state.card, token: state.user.token, cardError: state.card.error}),
   { sendCard, getCard }
 )(ProfileForm);
