@@ -14,6 +14,9 @@ describe("addressesSaga test", () => {
     )
     expect(dispatched).toEqual([
       {
+        type: "loft-taxi/addresses/setLoading"
+      },
+      {
         type: "loft-taxi/addresses/setAddresses",
         payload: ["Address 1","Address 2"]
       }

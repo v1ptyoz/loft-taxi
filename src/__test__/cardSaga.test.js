@@ -14,6 +14,9 @@ describe("cardSaga test", () => {
     )
     expect(dispatched).toEqual([
       {
+        type: "loft-taxi/card/setLoading"
+      },
+      {
         type: "loft-taxi/card/setCard",
         payload: {cardNumber: "cardNumber", cardName: "cardHolder", expiryDate: "11/22", cvc: "555"}
       }
@@ -26,6 +29,9 @@ describe("cardSaga test", () => {
       sendCard({cardNumber: "cardNumber", cardName: "cardHolder", expiryDate: "11/22", cvc: "555"}),
     )
     expect(dispatched).toEqual([
+      {
+        type: "loft-taxi/card/setLoading"
+      },
       {
         type: "loft-taxi/card/setCard",
         payload: {cardNumber: "cardNumber", cardName: "cardHolder", expiryDate: "11/22", cvc: "555"}

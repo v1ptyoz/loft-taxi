@@ -15,6 +15,9 @@ describe("Registration saga test", () => {
     )
     expect(dispatched).toEqual([
       {
+        type: "loft-taxi/user/setLoading"
+      },
+      {
         type: "loft-taxi/user/logIn",
         payload: "testToken"
       }
