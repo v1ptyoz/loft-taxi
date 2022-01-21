@@ -33,6 +33,9 @@ function LoginForm(props) {
             <h2>Войти</h2>
           </div>
           <div className="form__content">
+            <div className="error-block">
+              {props.userError && <p className="error-message">{props.userError}</p>}
+            </div>
             <Controller
               name="email"
               control={control}
@@ -57,7 +60,7 @@ function LoginForm(props) {
             <div className="forgot">
               <span>Забыли пароль</span>
             </div>
-            <Button type="submit" caption="Войти" />
+            <Button type="submit" caption="Войти" disabled={props.loading} isLoading={props.loading} />
             <div className="form__footer">
               Новый пользователь?
               <Link to="/register">Регистрация</Link>
@@ -70,6 +73,6 @@ function LoginForm(props) {
 }
 
 export default connect(
-  (state) => ({isLoggedIn: state.user.isLoggedIn}),
+  (state) => ({isLoggedIn: state.user.isLoggedIn, loading: state.user.loading, userError: state.user.error}),
   { auth }
 )(LoginForm);
