@@ -8,7 +8,7 @@ const appState = combineReducers({
   user,
   card,
   addresses,
-  route
+  route,
 });
 
 export default appState;

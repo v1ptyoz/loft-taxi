@@ -1,22 +1,34 @@
-import {setCard} from "./actions";
+import {setCard, setError, setLoading} from "./actions";
 
 const initState = {
     isExist: false,
     cardNumber: "",
     expiryDate: "",
     cardName: "",
-    cvc: ""
+    cvc: "",
+    loading: false,
+    error: null
  };
  
 const card = (state = initState, action) => {
   switch (action.type) {
+    case setLoading.toString():
+      return {
+        loading: true,
+      }
+    case setError.toString():
+      return {
+        loading: false,
+        error: action.payload
+      }
     case setCard.toString():
       return {
         cardNumber: action.payload.cardNumber,
         expiryDate: action.payload.expiryDate,
         cardName: action.payload.cardName,
         cvc: action.payload.cvc,
-        isExist: true
+        isExist: true,
+        loading: false
       }
     default: return state;
   }
