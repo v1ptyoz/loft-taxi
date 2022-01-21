@@ -1,5 +1,6 @@
 import "./Button.css";
 import propTypes from "prop-types";
+import {TailSpin} from "react-loader-spinner";
 
 export function Button(props) {
   return (
@@ -8,7 +9,8 @@ export function Button(props) {
         className="btn"
         disabled={props.disabled}
         onClick={props.onClick}>
-          {props.caption}
+        {props.isLoading && <TailSpin color="#ffffff" width={40} height={40} />}
+        {!props.isLoading && props.caption}
       </button>
   )
 }
