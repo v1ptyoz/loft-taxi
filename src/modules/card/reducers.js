@@ -14,6 +14,7 @@ const card = (state = initState, action) => {
   switch (action.type) {
     case setLoading.toString():
       return {
+        ...state,
         loading: true,
       }
     case setError.toString():
