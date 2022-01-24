@@ -66,3 +66,19 @@
   display: flex;
   gap: 35px;
 }
+
+@media screen and (max-width: 320px) {
+  .profile .form__right {
+    display: none;
+  }
+  .profile__wrapper {
+    padding: 20px;
+  }
+  .profile .form__left {
+    width: 280px;
+    margin-right: 0;
+  }
+  .profile .form__buttons {
+    width: 240px;
+  }
+}
