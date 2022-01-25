@@ -9,18 +9,12 @@
   color: #FDBF5A;
   text-decoration: none;
 }
-.header__topline {
-  justify-content: space-between;
-}
 
-@media screen and (max-width: 320px) { 
-  .header__link {
-    display: none;
-  }
-  .header__topline {
-    justify-content: center;
-  }
-  .header .header__topline {
-    justify-content: center;
-  }
+.menu__link {
+  color: #000
+}
+.menu__link.menu__link--active,
+.menu__link:hover {
+  color: #FDBF5A;
+  text-decoration: none;
 }
