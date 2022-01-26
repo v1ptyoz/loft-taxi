@@ -18,7 +18,7 @@ export function Map() {
       zoom: 12
     });
 
-    return () => map.remove();
+    return () => map.current.remove();
   }, [])
   
   return (

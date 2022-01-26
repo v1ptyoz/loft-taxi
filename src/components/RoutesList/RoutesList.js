@@ -74,6 +74,8 @@ function RoutesList(props) {
     }
     if (props.points.length > 0) {
       drawRoute(props.map.current, props.points);
+      setFrom("");
+      setTo("");
     }
   }, [props])
 

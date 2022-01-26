@@ -15,6 +15,9 @@ describe("Route saga test", () => {
     )
     expect(dispatched).toEqual([
       {
+        type: "loft-taxi/route/setLoading"
+      },
+      {
         type: "loft-taxi/route/setRoute",
         payload: [[1,2],[3,4],[5,6]]
       }

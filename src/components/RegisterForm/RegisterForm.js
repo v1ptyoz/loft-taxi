@@ -1,80 +1,88 @@
 import { Button } from "../Button/Button";
-import { useEffect, useState } from "react";
 import { Box } from "@mui/system";
 import { TextField } from "@mui/material";
 import { useNavigate, Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { register } from "../../modules/user";
+import { useForm, Controller } from "react-hook-form";
+import './RegisterForm.css'
+import messages from "../../modules/errors";
 
 function RegisterForm(props) {
-  let [email, setEmail] = useState();
-  let [password, setPassword] = useState();
-  let [name, setName] = useState();
-  let [disabled, setDisabled] = useState(true);
-
-  function checkInput() {
-    if (email && password && name) {
-      setDisabled(false)
-    } else {
-      setDisabled(true)
+  const { handleSubmit, control, reset, formState: { errors } } = useForm({
+    defaultValues: {
+      email: '',
+      fullName: '',
+      password: ''
     }
-  }
-
+  });
   const navigate = useNavigate();
 
-  const submit = async (event) => {
-    event.preventDefault();
+  const onSubmit = async data => {
+    const {email, password, fullName} = data;
+    const name = fullName.split(" ")[0];
+    const surname = fullName.split(" ")[1];
     await props.register({
       email,
       password,
-      name: name.split(" ")[0],
-      surname: name.split(" ")[1],
+      name,
+      surname
     });
-  }
-
-  useEffect(() => {
     if (props.isLoggedIn) {
+      reset();
       navigate("/");
     }
-  }, [props])
+  }
 
   return (
     <Box>
-      <form className="form" onSubmit={submit}>
+      <form className="form register" onSubmit={handleSubmit(onSubmit)}>
         <div className="form__wrapper">
           <div className="form__header">
             <h2>Регистрация</h2>
           </div>
           <div className="form__content">
-            <TextField
-              required
-              id="standard-required"
-              label="Email"
-              variant="standard"
-              sx={{ width: "100%", mb: "35px"}}
-              onInput={(event) => {setEmail(event.target.value); checkInput()}}
+            <div className="error-block">
+                {props.userError && <p className="error-message">{props.userError}</p>}
+              </div>
+            <Controller
+              name="email"
+              control={control}
+              rules={{ 
+                required: {value: true, message: messages.required },
+                pattern: {
+                  value: /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+                  message: messages.wrong
+              } }}
+              render={({ field }) => <TextField {...field} label="Email" variant="standard" sx={{ width: "100%", mb: "35px"}} />}
             />
-            <TextField
-              required
-              id="standard-required"
-              data-testid="name"
-              label="Как вас зовут?"
-              variant="standard"
-              sx={{ width: "100%", mb: "35px"}}
-              onInput={(event) => { setName(event.target.value); checkInput() }}
+            {errors.email && <p className="error-message">{errors.email.message}</p>}
+            <Controller
+              name="fullName"
+              control={control}
+              rules={{ required: {value: true, message: messages.required }, pattern: {value: /.+ .+/, message: messages.nows} }}
+              render={({ field }) => <TextField {...field} label="Как вас зовут?" variant="standard" sx={{ width: "100%", mb: "35px"}} />}
             />
-            <TextField
-              required
-              id="standard-password-input"
-              data-testid="password"
-              type="password"
-              autoComplete="current-password"
-              label="Придумайте пароль"
-              variant="standard"
-              sx={{ width: "100%", mb: "50px"}}
-              onInput={(event) => { setPassword(event.target.value); checkInput() }}
+            {errors.fullName && <p className="error-message">{errors.fullName.message}</p>}
+            <Controller
+              name="password"
+              control={control}
+              rules={
+                { required: 
+                  {
+                    value: true, 
+                    message: messages.required
+                  }, 
+                  minLength: 
+                  {
+                    value: 6, 
+                    message: messages.minLen(6)
+                  } 
+              }}
+              render={({ field }) => <TextField {...field} label="Пароль" variant="standard" sx={{ width: "100%", mb: "30px"}} type="password" autoComplete="current-password"/>}
             />
-            <Button caption="Войти" type="submit" disabled={disabled}/>
+            {errors.password && <p className="error-message">{errors.password.message}</p>}
+            <Button caption="Зарегистрироваться" type="submit" disabled={props.isLoading} isLoading={props.isLoading} />
             <div className="form__footer">
               Уже зарегистрированы?
               <Link to="/login">Войти</Link>
@@ -87,6 +95,6 @@ function RegisterForm(props) {
 }
 
 export default connect(
-  (state) => ({isLoggedIn: state.user.isLoggedIn}),
+  (state) => ({isLoggedIn: state.user.isLoggedIn, isLoading: state.user.loading, userError: state.user.error}),
   { register }
 )(RegisterForm);
