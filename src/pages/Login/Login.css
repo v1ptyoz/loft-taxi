@@ -35,7 +35,7 @@
   flex-direction: column;
 }
 
-@media screen and (max-width: 320px) {
+@media screen and (max-width: 900px) {
   .login-page {
     flex-direction: column;
     background: #1C1A19;
@@ -52,6 +52,7 @@
   .login-page .right {
     flex: 1;
     height: auto;
+    width: 100%;
   }
   .login-page .form__wrapper {
     width: 320px;
