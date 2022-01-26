@@ -67,7 +67,7 @@
   gap: 35px;
 }
 
-@media screen and (max-width: 320px) {
+@media screen and (max-width: 900px) {
   .profile .form__right {
     display: none;
   }

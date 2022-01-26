@@ -25,6 +25,15 @@
   color: gray
 }
 
+@media screen and (max-width: 900px) {
+  .modal {
+    left: 0;
+    right: 0;
+    margin: auto;
+    max-width: 320px;
+  }
+}
+
 @media screen and (max-width: 320px) {
   .modal {
     padding: 3px;

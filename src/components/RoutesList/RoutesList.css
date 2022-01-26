@@ -2,6 +2,12 @@
   width: 400px;
 }
 
+@media screen and (max-width: 900px) {
+  .form__select {
+    width: 220px;
+  }
+}
+
 @media screen and (max-width: 320px) {
   .form__btn {
     width: 250px;
