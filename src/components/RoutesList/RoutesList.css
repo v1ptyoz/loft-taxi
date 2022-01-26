@@ -1,0 +1,15 @@
+.form__select {
+  width: 400px;
+}
+
+@media screen and (max-width: 320px) {
+  .form__btn {
+    width: 250px;
+    position: fixed;
+    bottom: 20px;
+    transform: translateX(20px);
+  }
+  .form__select {
+    width: 280px;
+  }
+}

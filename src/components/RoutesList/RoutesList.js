@@ -8,6 +8,7 @@ import { Button } from "../Button/Button";
 import { connect } from "react-redux";
 import { getAddresses } from "../../modules/addresses";
 import { clearRoute, getRoute } from "../../modules/route";
+import './RoutesList.css';
 
 function drawRoute(map, coordinates) {
   if (map.getLayer("route")) {
@@ -99,7 +100,7 @@ function RoutesList(props) {
           <h2 className="modal__header">Заказ такси</h2>
           <form onSubmit={submit}>
             <Box>
-              <FormControl variant="standard" sx={{ m: 1, minWidth: 400 }}>
+              <FormControl variant="standard" sx={{ m: 1 }} className="form__select">
                 <InputLabel id="from-label">Откуда</InputLabel>
                 <Select
                   labelId="from-label"
@@ -122,7 +123,7 @@ function RoutesList(props) {
               </FormControl>
             </Box>
             <Box>
-              <FormControl variant="standard" sx={{ m: 1, minWidth: 400, mb: 5 }}>
+              <FormControl variant="standard" sx={{ m: 1, mb: 5 }} className="form__select">
                 <InputLabel id="to-label">Куда</InputLabel>
                 <Select
                   labelId="to-label"
@@ -142,7 +143,9 @@ function RoutesList(props) {
                 </Select>
               </FormControl>
             </Box>
-            <Button caption="Заказать" type="submit" />
+            <div className="form__btn">
+              <Button caption="Заказать" type="submit" />
+            </div>
           </form>
       </div>
   ) : (

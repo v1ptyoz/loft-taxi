@@ -9,3 +9,12 @@
   color: #FDBF5A;
   text-decoration: none;
 }
+
+.menu__link {
+  color: #000
+}
+.menu__link.menu__link--active,
+.menu__link:hover {
+  color: #FDBF5A;
+  text-decoration: none;
+}
