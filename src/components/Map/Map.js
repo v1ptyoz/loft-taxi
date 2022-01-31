@@ -1,6 +1,7 @@
 import "./Map.css";
 import { useEffect, useRef } from "react";
-import mapboxgl from "mapbox-gl";
+// eslint-disable-next-line import/no-webpack-loader-syntax
+import mapboxgl from "!mapbox-gl";
 import { Outlet, useLocation } from "react-router-dom";
 import MapModal from "../MapModal/MapModal";
 
